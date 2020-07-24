@@ -3,6 +3,7 @@
 namespace DataDog\AuditBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Melange\CmsBundle\Annotations\Model;
 
 /**
  * @ORM\Entity
@@ -14,11 +15,21 @@ class AuditLog
      * @ORM\Id
      * @ORM\Column(type="bigint")
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Model(
+     *     label="Id",
+     *     order={"audit": 1000},
+     *     readonly=true
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(length=12)
+     * @Model(
+     *     label="Action",
+     *     order={"audit": 2000},
+     *     readonly=true
+     * )
      */
     private $action;
 
