@@ -3,7 +3,9 @@
 namespace DataDog\AuditBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use Melange\CmsBundle\Annotations\Model;
+use Melange\CmsBundle\Annotations\Group;
 
 /**
  * @ORM\Entity
@@ -35,32 +37,50 @@ class AuditLog
 
     /**
      * @ORM\Column(length=128)
+     * @Model(
+     *     label="Table",
+     *     order={"audit": 3000},
+     *     readonly=true
+     * )
      */
     private $tbl;
 
     /**
      * @ORM\OneToOne(targetEntity="Association")
      * @ORM\JoinColumn(nullable=false)
+     * @Group(name="source")
      */
     private $source;
 
     /**
      * @ORM\OneToOne(targetEntity="Association")
+     * @Group(name="target")
      */
     private $target;
 
     /**
      * @ORM\OneToOne(targetEntity="Association")
+     * @Group(name="blame")
      */
     private $blame;
 
     /**
      * @ORM\Column(type="json", nullable=true)
+     * @Model(
+     *     label="Diff",
+     *     order={"audit": 6000},
+     *     readonly=true
+     * )
      */
     private $diff;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="logged_at")
+     * @Model(
+     *     label="Logged At",
+     *     order={"audit": 7000},
+     *     readonly=true
+     * )
      */
     private $loggedAt;
 
